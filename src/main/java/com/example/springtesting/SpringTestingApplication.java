@@ -6,6 +6,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -23,6 +25,8 @@ public class SpringTestingApplication {
 @RestController
 @RequestMapping("/coffees")
 class RestApiDemoController {
+
+    
     private List<Coffee> coffees= new ArrayList<>();
 
     public RestApiDemoController() {
@@ -95,9 +99,11 @@ class RestApiDemoController {
 }
 
 
-
+@Entity
 class Coffee {
-    private final String id;
+    //With Coffee now defined as a valid JPA entity able to be stored and retrieved, it’s time to make the connection to the database
+    @Id
+    private  String id;
     private String name;
 
     public Coffee (String id, String name)
@@ -111,12 +117,18 @@ class Coffee {
         //?
 
     }
+
+    public Coffee() {
+
+    }
+
     public String getId() {
         return id ;
     }
     public String getName() {
         return name;
     }
+    public void setId(String id) { this.id = id;};
     public void setName (String name)
     {
         this.name = name;
